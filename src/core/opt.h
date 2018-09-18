@@ -6,7 +6,7 @@
 struct opt_s {
     unsigned int client_n;
     unsigned int request_n;
-    char method[DEFAULT_CLIENT_N];
+    char method[METHOD_LEN];
 };
 
 #endif /* __OPT_H__ */

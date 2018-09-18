@@ -5,6 +5,9 @@ git clone git@github.com:huanghantao/hht_webbench.git
 cd dockerfileDir/
 sh build_mirror.sh
 sh start_container.sh
+make clean
+make
+./hht_webbench -c 6 -n 1000 -m POST http://www.baidu.com
 ```
 
 ## 二、可以控制的选项

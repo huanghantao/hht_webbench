@@ -22,7 +22,7 @@ int main(int argc, char * const *argv)
             case 'c': opt_o.client_n = atoi(optarg);break;
             case 'n': opt_o.request_n = atoi(optarg);break;
             case 'm': 
-                memcpy(opt_o.method, optarg, METHOD_LEN);break;
+                memcpy(opt_o.method, optarg, METHOD_LEN - 1);break;
             default: usage();return 2;
         }
     }

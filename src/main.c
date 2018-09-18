@@ -48,4 +48,5 @@ int parse_option(int argc, char * const *argv, struct opt_s *opt_o) {
         usage();
         return -1;
     }
+    return 0;
 }

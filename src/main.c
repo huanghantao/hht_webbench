@@ -29,12 +29,13 @@ int parse_option(int argc, char * const *argv, struct opt_s *opt_o) {
 
     while ((opt = getopt(argc, argv, "Vhc:n:t:m:")) != -1) {
         switch (opt) {
-            case 'V': printf("hht_webbench version "VERSION"\n");return 2;
+            case 'V': printf("hht_webbench version "VERSION"\n");return -1;
             case 'h': usage();return -1;
             case 'c': opt_o->client_n = atoi(optarg);break;
             case 'n': opt_o->request_n = atoi(optarg);break;
             case 'm': 
-                memcpy(opt_o->method, optarg, METHOD_LEN - 1);break;
+                    memcpy(opt_o->method, optarg, MAX_METHOD_LEN);
+                    (opt_o->method)[MAX_METHOD_LEN] = 0;break;
             default: usage();return -1;
         }
     }

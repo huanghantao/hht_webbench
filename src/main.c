@@ -2,21 +2,17 @@
 #include <getopt.h>
 #include <string.h>
 #include <stdlib.h>
-#include "config/config.h"
-#include "core/opt.h"
-#include "core/common.h"
+#include "config/hht_config.h"
+#include "core/hht_opt.h"
+#include "core/hht_common.h"
 
-int parse_option(int argc, char * const *argv, struct opt_s *opt_o);
+int hht_parse_option(int argc, char * const *argv, struct hht_opt_s *opt_o);
 
 int main(int argc, char * const *argv)
 {
-    struct opt_s opt_o = {
-        .client_n = DEFAULT_CLIENT_N,
-        .request_n = DEFAULT_REQUEST_N,
-        .method = "GET"
-    };
+    struct hht_opt_s opt_o = {DEFAULT_CLIENT_N, DEFAULT_REQUEST_N, "GET"};
 
-    if (parse_option(argc, argv, &opt_o) == -1) {
+    if (hht_parse_option(argc, argv, &opt_o) == -1) {
         exit(0);
     }
 
@@ -24,7 +20,8 @@ int main(int argc, char * const *argv)
     return 0;
 }
 
-int parse_option(int argc, char * const *argv, struct opt_s *opt_o) {
+int hht_parse_option(int argc, char * const *argv, struct hht_opt_s *opt_o)
+{
     int opt = 0;
 
     while ((opt = getopt(argc, argv, "Vhc:n:t:m:")) != -1) {

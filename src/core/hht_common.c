@@ -1,4 +1,4 @@
-#include "common.h"
+#include "hht_common.h"
 #include <stdio.h>
 
 void usage(void)

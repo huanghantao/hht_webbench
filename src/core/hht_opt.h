@@ -8,7 +8,7 @@
 struct hht_opt_s {
     unsigned int client_n;
     unsigned int request_n;
-    struct hht_str_s method;
+    hht_str_t method;
 };
 
 #endif /* __HHT_OPT_H__ */

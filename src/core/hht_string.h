@@ -2,6 +2,8 @@
 #define __HHT_STRING_H__
 
 
+#include <stdlib.h>
+
 typedef struct hht_str_s {
     unsigned int len;
     unsigned char *data;

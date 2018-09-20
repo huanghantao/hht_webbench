@@ -1,19 +1,19 @@
 #include <stdlib.h>
 #include "hht_string.h"
 
-int hht_string_eq(const hht_str_t *lhs, const hht_str_t *rhs)
+int hht_string_eq(const hht_str_t *lstr, const hht_str_t *rstr)
 {
-    if (lhs->data == NULL && rhs->data == NULL) {
+    if (lstr->data == NULL && rstr->data == NULL) {
         return 0;
     }
-    if (lhs->data == NULL || rhs->data == NULL) {
+    if (lstr->data == NULL || rstr->data == NULL) {
         return 1;
     }
-    if (lhs->len != rhs->len) {
+    if (lstr->len != rstr->len) {
         return 1;
     }
-    for (int i = 0; i < lhs->len; ++i) {
-        if (lhs->data[i] != rhs->data[i]) {
+    for (int i = 0; i < lstr->len; ++i) {
+        if (lstr->data[i] != rstr->data[i]) {
             return 1;
         }
     }

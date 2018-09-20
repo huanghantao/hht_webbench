@@ -9,10 +9,10 @@ typedef struct hht_str_s {
 
 #define hht_string(str) { sizeof(str) - 1, (unsigned char *) str }
 
-static inline hht_str_t string_setto(unsigned char *cstr, int len)
+static inline hht_str_t hht_string_setto(unsigned char *cstr, int len)
 {
     return (hht_str_t){len, cstr};
 }
-int string_eq(const hht_str_t *lhs, const hht_str_t *rhs);
+int hht_string_eq(const hht_str_t *lhs, const hht_str_t *rhs);
 
 #endif /* __HHT_STRING_H__ */

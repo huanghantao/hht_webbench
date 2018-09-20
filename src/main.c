@@ -33,11 +33,11 @@ int hht_parse_option(int argc, char * const *argv, struct hht_opt_s *opt_o)
             case 'h': usage();return -1;
             case 'c': opt_o->client_n = atoi(optarg);break;
             case 'n': opt_o->request_n = atoi(optarg);break;
-            case 'm': opt_o->method = string_setto(optarg, strlen(optarg));break;
+            case 'm': opt_o->method = hht_string_setto(optarg, strlen(optarg));break;
             default: usage();return -1;
         }
     }
-    if (string_eq(&(opt_o->method), &(tmp_s1)) != 0 && string_eq(&(opt_o->method), &(tmp_s2)) != 0) {
+    if (hht_string_eq(&(opt_o->method), &(tmp_s1)) != 0 && hht_string_eq(&(opt_o->method), &(tmp_s2)) != 0) {
         fprintf(stderr, "The request method only supports GET and POST\n");
         usage();
         return -1;

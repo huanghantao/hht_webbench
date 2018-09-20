@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "hht_string.h"
 
-int string_eq(const hht_str_t *lhs, const hht_str_t *rhs)
+int hht_string_eq(const hht_str_t *lhs, const hht_str_t *rhs)
 {
     if (lhs->data == NULL && rhs->data == NULL) {
         return 0;

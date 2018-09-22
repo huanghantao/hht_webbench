@@ -44,7 +44,7 @@ int hht_get_method_index(hht_str_t *method_str)
     int i;
 
     for (i = 0; i < HTTP_DELETE; ++i) {
-        if (strncasecmp(http_method_strs[i], method_str->data, method_str->len) == 0) {
+        if (strcasecmp(http_method_strs[i], method_str->data) == 0) {
             return i;
         }
     }

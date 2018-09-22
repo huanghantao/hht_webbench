@@ -15,7 +15,7 @@ int hht_parse_option(int argc, char * const *argv, hht_opt_t *opt_o)
             case 'h': usage();return -1;
             case 'c': opt_o->client_n = atoi(optarg);break;
             case 'n': opt_o->request_n = atoi(optarg);break;
-            case 'm': opt_o->method = hht_string_setto(optarg, strlen(optarg));break;
+            case 'm': opt_o->method = hht_str_setto(optarg, strlen(optarg));break;
             default: usage();return -1;
         }
     }

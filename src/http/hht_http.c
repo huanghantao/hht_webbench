@@ -8,23 +8,23 @@ static const char *http_method_strs[] = {
     "GET", "POST", "PUT", "DELETE"
 };
 
-void http_request_init(hht_http_request_t *http_request_o)
+void hht_http_request_init(hht_http_request_t *http_request_o)
 {
     http_request_o->len = 0;
-    http_request_o->method = hht_string_setto(DEFAULT_METHOD, DEFAULT_METHOD_LEN);
+    http_request_o->method = hht_str_setto(DEFAULT_METHOD, DEFAULT_METHOD_LEN);
     http_request_o->len += http_request_o->method.len + 2;
-    http_headers_in_init(&(http_request_o->headers_in));
+    hht_http_headers_in_init(&(http_request_o->headers_in));
     http_request_o->len += http_request_o->headers_in.len;
     http_request_o->http_request_buf = NULL;
 }
 
-void http_headers_in_init(hht_http_headers_in_t *http_headers_in_o)
+void hht_http_headers_in_init(hht_http_headers_in_t *http_headers_in_o)
 {
-    http_headers_in_o->host = hht_string_setto(DEFAULT_HOST, DEFAULT_HOST_LEN);
+    http_headers_in_o->host = hht_str_setto(DEFAULT_HOST, DEFAULT_HOST_LEN);
     http_headers_in_o->len = http_headers_in_o->host.len + 4;
 }
 
-void fill_http_request_buf(hht_http_request_t *http_request_o)
+void hht_fill_http_request_buf(hht_http_request_t *http_request_o)
 {
     void *vptr;
 

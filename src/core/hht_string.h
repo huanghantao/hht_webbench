@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 typedef struct hht_str_s {
-    unsigned int len;
+    size_t len;
     unsigned char *data;
 } hht_str_t;
 

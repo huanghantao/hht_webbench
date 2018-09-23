@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdio.h>
 #include "hht_http.h"
 #include "../config/hht_config.h"
 #include "../core/hht_string.h"
@@ -26,7 +27,7 @@ void hht_http_request_init(hht_http_request_t *http_request_o)
 void hht_http_headers_in_init(hht_http_headers_in_t *http_headers_in_o)
 {
     http_headers_in_o->host = hht_str_setto(DEFAULT_HOST, DEFAULT_HOST_LEN);
-    http_headers_in_o->len = http_headers_in_o->host.len + 4;
+    http_headers_in_o->len = http_headers_in_o->host.len + 10;
 }
 
 void hht_fill_http_request_buf(hht_http_request_t *http_request_o)
@@ -48,7 +49,11 @@ void hht_fill_http_request_buf(hht_http_request_t *http_request_o)
     vptr += http_request_o->protocol.len;
     memcpy(vptr, "\r\n", 2);
     vptr += 2;
-    // memcpy(vptr, "\r\n\r\n", 4);
+    memcpy(vptr, "Host: ", 6);
+    vptr += 6;
+    memcpy(vptr, http_request_o->headers_in.host.data, http_request_o->headers_in.host.len);
+    vptr += http_request_o->headers_in.host.len;
+    memcpy(vptr, "\r\n\r\n", 4);
 }
 
 int hht_get_method_index(hht_str_t *method_str)

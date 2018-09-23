@@ -13,7 +13,7 @@ int main(int argc, char * const *argv)
         exit(0);
     }
 
-    printf("%u %u %s\n", opt_o.client_n, opt_o.request_n, opt_o.method.data);
+    // printf("%u %u %s\n", opt_o.client_n, opt_o.request_n, opt_o.method.data);
 
     hht_http_request_init(&http_request_o);
     hht_fill_http_request_buf(&http_request_o);

@@ -9,15 +9,17 @@ enum hht_http_method {
 };
 
 typedef struct hht_http_headers_in_s {
-    unsigned int len;
+    size_t len;
     hht_str_t host;
     // hht_str_t connection;
     // hht_str_t agent;
 } hht_http_headers_in_t;
 
 typedef struct hht_http_request_s {
-    unsigned int len;
+    size_t len;
     hht_str_t method;
+    hht_str_t path;
+    hht_str_t protocol;
     hht_http_headers_in_t headers_in;
     unsigned char *http_request_buf;
 } hht_http_request_t;

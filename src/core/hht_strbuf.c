@@ -45,3 +45,37 @@ void clear_str_buf(hht_str_buf_t *str_buf)
         str_buf->len = 0;
     }
 }
+
+static int expand_buffer(hht_str_buf_t *str_buf, size_t nbytes)
+{
+    char *new_buf;
+    int diff;
+    size_t new_capacity;
+
+    diff = nbytes - (str_buf->capacity - str_buf->len);
+    if (diff <= 0) /* The remaining size is enough */
+        return 0;
+    
+    new_capacity = str_buf->capacity + (diff / STEP_LEN + 1) * STEP_LEN;
+    new_buf = realloc(str_buf->buf, new_capacity);
+    if (new_buf != NULL) {
+        str_buf->buf = new_buf;
+        memset(str_buf->buf + str_buf->capacity, 0, new_capacity - str_buf->capacity);
+        str_buf->capacity = new_capacity;
+        return 0;
+    } else
+        return -1;
+}
+
+int append_str_buf(hht_str_buf_t *str_buf, hht_str_t *str)
+{
+    if (str_buf == NULL || str == NULL)
+        return -1;
+    if (expand_buffer(str_buf, str->len) == 0) {
+        memcpy(str_buf->buf + str_buf->len, str->data, str->len);
+        str_buf->len += str->len;
+        str_buf->buf[str_buf->len] = 0;
+        return str->len;
+    } else
+        return -1;
+}

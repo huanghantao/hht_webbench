@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include "hht_string.h"
 
+#define STEP_LEN 512
+
 typedef struct hht_str_buf_s {
     size_t len;
     size_t capacity;

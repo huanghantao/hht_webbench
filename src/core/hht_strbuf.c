@@ -1,4 +1,6 @@
 #include <string.h>
+#include <stdarg.h>
+#include <stdio.h>
 #include "hht_strbuf.h"
 
 hht_str_buf_t *new_str_buf(void)
@@ -63,8 +65,9 @@ static int expand_buffer(hht_str_buf_t *str_buf, size_t nbytes)
         memset(str_buf->buf + str_buf->capacity, 0, new_capacity - str_buf->capacity);
         str_buf->capacity = new_capacity;
         return 0;
-    } else
+    } else {
         return -1;
+    }
 }
 
 int append_str_buf(hht_str_buf_t *str_buf, hht_str_t *str)
@@ -76,6 +79,36 @@ int append_str_buf(hht_str_buf_t *str_buf, hht_str_t *str)
         str_buf->len += str->len;
         str_buf->buf[str_buf->len] = 0;
         return str->len;
-    } else
+    } else {
         return -1;
+    }
+}
+
+int append_fstr_buf(hht_str_buf_t *str_buf, const char *format, ...)
+{
+    size_t n;
+    int ret;
+    va_list args;
+
+    if (str_buf == NULL)
+        return -1;
+    
+    while (1) {
+        n = str_buf->capacity - str_buf->len;
+        va_start(args, format);
+        ret = vsnprintf(str_buf->buf + str_buf->len, n, format, args);
+        va_end(args);
+        if (ret >= 0 && ret < n) {
+            str_buf->len += ret;
+            return ret;
+        } else if (ret < 0) {
+            return ret;
+        } else { /* The remaining size is not enough */
+            if (expand_buffer(str_buf, ret - n)) {
+                return -1;
+            }
+        }
+    }
+
+    return ret;
 }

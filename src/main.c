@@ -15,8 +15,6 @@ int main(int argc, char * const *argv)
 
     // printf("%u %u %s\n", opt_o.client_n, opt_o.request_n, opt_o.method.data);
 
-    hht_http_request_init(&http_request_o);
-    hht_fill_http_request_buf(&http_request_o);
     write(STDOUT_FILENO, http_request_o.http_request_buf, http_request_o.len);
     return 0;
 }

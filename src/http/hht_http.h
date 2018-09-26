@@ -10,9 +10,9 @@ enum hht_http_method {
 };
 
 typedef struct hht_http_header_node_s {
+    hht_list_head_t node;
     hht_str_t *key;
     hht_str_t *value;
-    hht_list_head_t node;
 } hht_http_header_node_t;
 
 typedef struct hht_http_request_s {

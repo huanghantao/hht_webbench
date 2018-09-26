@@ -5,7 +5,7 @@
 #define LIST_HEAD_INIT(name) { &(name), &(name) }
 #define LIST_HEAD(name) hht_list_head_t name = LIST_HEAD_INIT(name)
 #define INIT_LIST_HEAD(ptr) do { \
-    (ptr)->next = (ptr); (ptr)->prev = (ptr); \
+        (ptr)->next = (ptr); (ptr)->prev = (ptr); \
 } while (0)
 
 typedef struct hht_list_head_s hht_list_head_t;
@@ -18,6 +18,22 @@ struct hht_list_head_s {
 static inline int list_empty(const hht_list_head_t *head)
 {
     return head->next == head;
+}
+
+static inline void list_add(hht_list_head_t *new, hht_list_head_t *prev, hht_list_head_t *next)
+{
+    next->prev = new;
+    new->next = next;
+    new->prev = prev;
+}
+
+static inline void list_add_head(hht_list_head_t *head, hht_list_head_t *new)
+{
+    list_add(new, head, head->next);
+}
+static inline void list_add_tail(hht_list_head_t *head, hht_list_head_t *new)
+{
+    list_add(new, head->prev, head);
 }
 
 #endif /* __HHT_LIST_H__ */

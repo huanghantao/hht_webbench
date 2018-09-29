@@ -41,4 +41,10 @@ static inline void list_add_tail(hht_list_head_t *head, hht_list_head_t *new)
     list_add(new, head->prev, head);
 }
 
+static inline void list_del(hht_list_head_t *prev, hht_list_head_t *next)
+{
+    next->prev = prev;
+    prev->next = next;
+}
+
 #endif /* __HHT_LIST_H__ */

@@ -31,3 +31,15 @@ const char *hht_get_http_method_str(int method_index)
 
     return http_method_strs[method_index];
 }
+
+hht_http_request_t *new_http_request(void)
+{
+    hht_http_request_t *http_request;
+
+    http_request = (hht_http_request_t *)calloc(1, sizeof(*http_request));
+    if (http_request != NULL) {
+        http_request->http_request_buf = new_str_buf();
+    }
+
+    return http_request;
+}

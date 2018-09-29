@@ -4,6 +4,7 @@
 
 #include "../core/hht_string.h"
 #include "../core/hht_list.h"
+#include "../core/hht_strbuf.h"
 
 enum hht_http_method {
     HTTP_GET, HTTP_POST, HTTP_PUT, HTTP_DELETE
@@ -16,12 +17,11 @@ typedef struct hht_http_header_node_s {
 } hht_http_header_node_t;
 
 typedef struct hht_http_request_s {
-    size_t len;
     hht_str_t method;
     hht_str_t path;
     hht_str_t protocol;
     hht_http_header_node_t headers_in_list;
-    unsigned char *http_request_buf;
+    hht_str_buf_t *http_request_buf;
 } hht_http_request_t;
 
 hht_http_request_t *new_http_request(void);

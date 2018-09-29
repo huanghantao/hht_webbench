@@ -7,7 +7,7 @@ hht_str_buf_t *new_str_buf(void)
 {
     hht_str_buf_t *str_buf;
 
-    str_buf = calloc(1, sizeof(*str_buf));
+    str_buf = (hht_str_buf_t *)calloc(1, sizeof(*str_buf));
     if (str_buf != NULL) {
         str_buf->buf = calloc(1, STEP_LEN);
         if (str_buf->buf != NULL) {

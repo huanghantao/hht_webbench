@@ -12,19 +12,20 @@ enum hht_http_method {
 
 typedef struct hht_http_header_node_s {
     hht_list_head_t node;
-    hht_str_t *key;
-    hht_str_t *value;
+    hht_str_t key;
+    hht_str_t value;
 } hht_http_header_node_t;
 
 typedef struct hht_http_request_s {
     hht_str_t method;
     hht_str_t path;
     hht_str_t protocol;
-    hht_http_header_node_t headers_in_list;
+    hht_http_header_node_t *headers_in_list;
     hht_str_buf_t *http_request_buf;
 } hht_http_request_t;
 
 hht_http_request_t *new_http_request(void);
+hht_http_header_node_t *new_http_header_node(char *key, char *value);
 int hht_get_method_index(hht_str_t *method_str);
 const char *hht_get_http_method_str(int method_index);
 

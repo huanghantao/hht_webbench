@@ -11,6 +11,9 @@ int main(int argc, char * const *argv)
 
     http_request_o = new_http_request();
 
+    write(1, http_request_o->method.data, http_request_o->method.len);
+    write(1, http_request_o->path.data, http_request_o->path.len);
+    write(1, http_request_o->protocol.data,http_request_o->protocol.len);
     printf("len: %zu, capacity: %zu, address: %p\n", 
             http_request_o->http_request_buf->len,
             http_request_o->http_request_buf->capacity,

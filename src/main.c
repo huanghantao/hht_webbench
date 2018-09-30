@@ -6,7 +6,7 @@
 
 int main(int argc, char * const *argv)
 {
-    hht_opt_t opt_o = { DEFAULT_CLIENT_N, DEFAULT_REQUEST_N, {DEFAULT_METHOD_LEN, "GET"} };
+    hht_opt_t opt_o = { DEFAULT_CLIENT_N, DEFAULT_REQUEST_N, {sizeof(DEFAULT_METHOD) - 1, DEFAULT_METHOD} };
     hht_http_request_t *http_request_o;
 
     http_request_o = new_http_request();

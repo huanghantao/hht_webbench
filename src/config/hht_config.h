@@ -8,12 +8,8 @@
 #define DEFAULT_REQUEST_N 1000
 #define MAX_REQUEST_LEN 256
 #define DEFAULT_METHOD "GET"
-#define DEFAULT_METHOD_LEN 3
 #define DEFAULT_HOST "localhost"
-#define DEFAULT_HOST_LEN 9
 #define DEFAULT_PATH "/"
-#define DEFAULT_PATH_LEN 1
 #define DEFAULT_PROTOCOL "HTTP/1.1"
-#define DEFAULT_PROTOCOL_LEN 8
 
 #endif /* __HHT_CONFIG_H__ */

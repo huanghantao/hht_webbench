@@ -32,7 +32,7 @@ const char *hht_get_http_method_str(int method_index)
     return http_method_strs[method_index];
 }
 
-hht_http_header_node_t *new_http_header_node(char *key, char *value)
+hht_http_header_node_t *new_http_header_node(unsigned char *key, unsigned char *value)
 {
     hht_http_header_node_t *http_header_node;
 
@@ -52,9 +52,9 @@ hht_http_request_t *new_http_request(void)
 
     http_request = (hht_http_request_t *)calloc(1, sizeof(*http_request));
     if (http_request != NULL) {
-        http_request->method = hht_str_setto(DEFAULT_METHOD, DEFAULT_METHOD_LEN);
-        http_request->path = hht_str_setto(DEFAULT_PATH, DEFAULT_PATH_LEN);
-        http_request->protocol = hht_str_setto(DEFAULT_PROTOCOL, DEFAULT_PROTOCOL_LEN);
+        http_request->method = hht_str_setto(DEFAULT_METHOD, sizeof(DEFAULT_METHOD) - 1);
+        http_request->path = hht_str_setto(DEFAULT_PATH, sizeof(DEFAULT_PATH) - 1);
+        http_request->protocol = hht_str_setto(DEFAULT_PROTOCOL, sizeof(DEFAULT_PROTOCOL) - 1);
         http_request->headers_in_list = new_http_header_node("Host: ", "localhost");
         if (http_request->headers_in_list == NULL) {
             free(http_request);

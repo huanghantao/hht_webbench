@@ -74,7 +74,7 @@ void http_header_node_add(hht_http_request_t *http_request, unsigned char *key, 
     }
 }
 
-void http_header_node_each(hht_http_request_t *http_request, void (*handler)(void* node))
+void http_header_node_each(hht_http_request_t *http_request, void (*handler)(void *node))
 {
-    
+
 }

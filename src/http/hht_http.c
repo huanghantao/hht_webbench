@@ -65,3 +65,16 @@ hht_http_request_t *new_http_request(void)
 
     return http_request;
 }
+
+void http_header_node_add(hht_http_request_t *http_request, unsigned char *key, unsigned char *value)
+{
+    hht_http_header_node_t *http_header_node = new_http_header_node(key, value);
+    if (http_header_node != NULL) {
+        list_add_tail(&(http_request->headers_in_list->node), &(http_header_node->node));
+    }
+}
+
+void http_header_node_each(hht_http_request_t *http_request, void (*handler)(void* node))
+{
+    
+}

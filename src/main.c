@@ -19,6 +19,8 @@ int main(int argc, char * const *argv)
             http_request_o->http_request_buf->capacity,
             http_request_o->http_request_buf->buf);
 
+    http_header_node_add(http_request_o, "User-Agent: ", "Mozilla/5.0");
+
     if (hht_parse_option(argc, argv, &opt_o) == -1) {
         exit(0);
     }

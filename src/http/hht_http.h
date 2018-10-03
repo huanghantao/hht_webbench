@@ -26,8 +26,8 @@ typedef struct hht_http_request_s {
 
 hht_http_request_t *new_http_request(void);
 hht_http_header_node_t *new_http_header_node(unsigned char *key, unsigned char *value);
-void http_header_node_add(hht_http_request_t *http_request, unsigned char *key, unsigned char *value);
-void http_header_node_each(hht_http_request_t *http_request, void (*handler)(void *node));
+void http_header_node_add(hht_http_request_t *http_request_o, unsigned char *key, unsigned char *value);
+void http_header_node_each(hht_http_request_t *http_request_o, void (*handler)(void *node));
 int hht_get_method_index(hht_str_t *method_str);
 const char *hht_get_http_method_str(int method_index);
 

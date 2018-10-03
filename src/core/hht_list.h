@@ -7,10 +7,10 @@
 #define INIT_LIST_HEAD(ptr) do { \
         (ptr)->next = (ptr); (ptr)->prev = (ptr); \
 } while (0)
-#define list_entry(ptr, type, member) ({ \
-        ((type *)((char *)(ptr) - offsetof(type, member)));})
-#define offsetof(type, member) ({ \
-    ((size_t)(&((type *)0)->member))})
+#define list_entry(ptr, type, member) \
+        ((type *)((char *)(ptr) - offsetof(type, member)))
+#define offsetof(type, member) \
+    ((size_t)(&((type *)0)->member))
 
 typedef struct hht_list_head_s hht_list_head_t;
 
@@ -29,6 +29,7 @@ static inline void list_add(hht_list_head_t *new, hht_list_head_t *prev, hht_lis
     next->prev = new;
     new->next = next;
     new->prev = prev;
+    prev->next = new;
 }
 
 static inline void list_add_head(hht_list_head_t *head, hht_list_head_t *new)

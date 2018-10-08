@@ -16,6 +16,7 @@ int main(int argc, char * const *argv)
 
     http_header_node_add(http_request_o, "Host: ", "localhost");
     http_header_node_add(http_request_o, "User-Agent: ", "Mozilla/5.0");
+    http_header_node_add(http_request_o, "User-Agent: ", "Mozilla/5.1");
 
     if (hht_parse_option(argc, argv, &opt_o) == -1) {
         exit(0);

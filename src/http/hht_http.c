@@ -5,6 +5,7 @@
 #include "hht_http.h"
 #include "../config/hht_config.h"
 #include "../core/hht_string.h"
+#include "../core/hht_list.h"
 
 static const char *http_method_strs[] = {
     "GET", "POST", "PUT", "DELETE"
@@ -78,7 +79,21 @@ void http_header_node_each(hht_http_request_t *http_request_o, void (*handler)(v
 {
     hht_list_head_t *head_node = &(http_request_o->headers_in_list->node);
     hht_list_head_t *pos = head_node->next;
-    for (; pos != (head_node); pos = pos->next) {
+    for (; pos != head_node; pos = pos->next) {
         handler(pos);
+    }
+}
+
+void fill_http_request_buf(hht_http_request_t *http_request_o)
+{
+    hht_list_head_t *head_node = &(http_request_o->headers_in_list->node);
+    hht_list_head_t *pos = head_node->next;
+    hht_http_header_node_t *http_header_node;
+    hht_str_t wrap = hht_str_setto("\r\n", strlen("\r\n"));
+    for (; pos != head_node; pos = pos->next) {
+        http_header_node = list_entry(pos, hht_http_header_node_t, node);
+        append_str_buf(http_request_o->http_request_buf, &(http_header_node->key));
+        append_str_buf(http_request_o->http_request_buf, &(http_header_node->value));
+        append_str_buf(http_request_o->http_request_buf, &wrap);
     }
 }

@@ -43,7 +43,6 @@ hht_http_header_node_t *new_http_header_node(unsigned char *key, unsigned char *
         if (key == NULL) {
             http_header_node->key.data = NULL;
             http_header_node->key.len = 0;
-
         } else {
             http_header_node->key = hht_str_setto(key, strlen(key));
         }

@@ -77,49 +77,49 @@ hht_http_request_t *new_http_request(void)
     return http_request;
 }
 
-void http_header_node_add(hht_http_request_t *http_request_o, unsigned char *key, unsigned char *value)
+void http_header_node_add(hht_http_request_t *http_request, unsigned char *key, unsigned char *value)
 {
     hht_http_header_node_t *http_header_node = new_http_header_node(key, value);
     hht_http_header_node_t *temp_http_header_node;
     hht_str_t key_str = hht_str_setto(key, strlen(key));
 
     if (http_header_node != NULL) {
-        temp_http_header_node = find_http_header_node_by_key(http_request_o, &key_str);
+        temp_http_header_node = find_http_header_node_by_key(http_request, &key_str);
         if (temp_http_header_node != NULL) { /* exist key */
             temp_http_header_node->value = hht_str_setto(value, strlen(value));
             return ;
         }
-        list_add_tail(&(http_request_o->headers_in_list->node), &(http_header_node->node));
+        list_add_tail(&(http_request->headers_in_list->node), &(http_header_node->node));
     }
 }
 
-void http_header_node_each(hht_http_request_t *http_request_o, void (*handler)(void *node))
+void http_header_node_each(hht_http_request_t *http_request, void (*handler)(void *node))
 {
-    hht_list_head_t *head_node = &(http_request_o->headers_in_list->node);
+    hht_list_head_t *head_node = &(http_request->headers_in_list->node);
     hht_list_head_t *pos = head_node->next;
     for (; pos != head_node; pos = pos->next) {
         handler(pos);
     }
 }
 
-int fill_http_request_buf(hht_http_request_t *http_request_o)
+int fill_http_request_buf(hht_http_request_t *http_request)
 {
-    hht_list_head_t *head_node = &(http_request_o->headers_in_list->node);
+    hht_list_head_t *head_node = &(http_request->headers_in_list->node);
     hht_list_head_t *pos = head_node->next;
     hht_http_header_node_t *http_header_node;
     hht_str_t wrap = hht_str_setto("\r\n", strlen("\r\n"));
 
-    if (append_fstr_buf(http_request_o->http_request_buf, 
+    if (append_fstr_buf(http_request->http_request_buf, 
             "%s %s %s\r\n", 
-            http_request_o->method.data, 
-            http_request_o->path.data, 
-            http_request_o->protocol.data) < 0) {
+            http_request->method.data, 
+            http_request->path.data, 
+            http_request->protocol.data) < 0) {
                 return -1;
     }
 
     for (; pos != head_node; pos = pos->next) {
         http_header_node = list_entry(pos, hht_http_header_node_t, node);
-        if (append_fstr_buf(http_request_o->http_request_buf, 
+        if (append_fstr_buf(http_request->http_request_buf, 
                 "%s%s\r\n", 
                 http_header_node->key.data, 
                 http_header_node->value.data) < 0) {
@@ -128,9 +128,9 @@ int fill_http_request_buf(hht_http_request_t *http_request_o)
     }
 }
 
-hht_http_header_node_t *find_http_header_node_by_key(hht_http_request_t *http_request_o, hht_str_t *key)
+hht_http_header_node_t *find_http_header_node_by_key(hht_http_request_t *http_request, hht_str_t *key)
 {
-    hht_list_head_t *head_node = &(http_request_o->headers_in_list->node);
+    hht_list_head_t *head_node = &(http_request->headers_in_list->node);
     hht_list_head_t *pos = head_node->next;
     hht_http_header_node_t *http_header_node;
 
@@ -144,11 +144,11 @@ hht_http_header_node_t *find_http_header_node_by_key(hht_http_request_t *http_re
     return NULL;
 }
 
-hht_http_header_node_t *find_http_header_node(hht_http_request_t *http_request_o, hht_str_t *key, hht_str_t *value)
+hht_http_header_node_t *find_http_header_node(hht_http_request_t *http_request, hht_str_t *key, hht_str_t *value)
 {
     hht_http_header_node_t *http_header_node;
 
-    http_header_node = find_http_header_node_by_key(http_request_o, key);
+    http_header_node = find_http_header_node_by_key(http_request, key);
     if (http_header_node != NULL && hht_str_eq(&(http_header_node->value), value) == 0) {
         return http_header_node;
     }

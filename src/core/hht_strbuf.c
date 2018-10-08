@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include <unistd.h>
 #include "hht_strbuf.h"
 
 hht_str_buf_t *new_str_buf(void)
@@ -90,8 +91,9 @@ int append_fstr_buf(hht_str_buf_t *str_buf, const char *format, ...)
     int ret;
     va_list args;
 
-    if (str_buf == NULL)
+    if (str_buf == NULL) {
         return -1;
+    }
     
     while (1) {
         n = str_buf->capacity - str_buf->len;

@@ -8,10 +8,10 @@ OBJS = $(patsubst %.c, obj/%.o, $(C_FILES))
 
 $(TARGET):$(OBJS)
 	-rm -f $@
-	$(CC) -o $(TARGET) $(OBJS)
+	$(CC) -o $(TARGET) $(OBJS) -g
 
 obj/%.o:%.c
-	$(CC) -c -o $@ $<
+	$(CC) -c -o $@ $< -g
 
 .PHONY:clean
 clean:

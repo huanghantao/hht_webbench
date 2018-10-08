@@ -84,16 +84,28 @@ void http_header_node_each(hht_http_request_t *http_request_o, void (*handler)(v
     }
 }
 
-void fill_http_request_buf(hht_http_request_t *http_request_o)
+int fill_http_request_buf(hht_http_request_t *http_request_o)
 {
     hht_list_head_t *head_node = &(http_request_o->headers_in_list->node);
     hht_list_head_t *pos = head_node->next;
     hht_http_header_node_t *http_header_node;
     hht_str_t wrap = hht_str_setto("\r\n", strlen("\r\n"));
+
+    if (append_fstr_buf(http_request_o->http_request_buf, 
+            "%s %s %s\r\n", 
+            http_request_o->method.data, 
+            http_request_o->path.data, 
+            http_request_o->protocol.data) < 0) {
+                return -1;
+    }
+
     for (; pos != head_node; pos = pos->next) {
         http_header_node = list_entry(pos, hht_http_header_node_t, node);
-        append_str_buf(http_request_o->http_request_buf, &(http_header_node->key));
-        append_str_buf(http_request_o->http_request_buf, &(http_header_node->value));
-        append_str_buf(http_request_o->http_request_buf, &wrap);
+        if (append_fstr_buf(http_request_o->http_request_buf, 
+                "%s%s\r\n", 
+                http_header_node->key.data, 
+                http_header_node->value.data) < 0) {
+            return -1;
+        }
     }
 }

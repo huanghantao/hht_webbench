@@ -120,7 +120,7 @@ int fill_http_request_buf(hht_http_request_t *http_request)
     for (; pos != head_node; pos = pos->next) {
         http_header_node = list_entry(pos, hht_http_header_node_t, node);
         if (append_fstr_buf(http_request->http_request_buf, 
-                "%s%s\r\n", 
+                "%s: %s\r\n", 
                 http_header_node->key.data, 
                 http_header_node->value.data) < 0) {
             return -1;

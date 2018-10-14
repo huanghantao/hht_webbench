@@ -20,5 +20,8 @@ static inline void hht_str_free(hht_str_t *str)
     free(str->data);
 }
 int hht_str_eq(const hht_str_t *lstr, const hht_str_t *rstr);
+int hht_str_eqn(const hht_str_t *lstr, const hht_str_t *rstr, int n);
+int hht_str_eq_cstr(const hht_str_t *str, const char *cstr);
+int hht_str_eqn_cstr(const hht_str_t *lstr, const char *cstr, int n);
 
 #endif /* __HHT_STRING_H__ */

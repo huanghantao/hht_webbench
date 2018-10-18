@@ -12,7 +12,6 @@ int main(int argc, char * const *argv)
 {
     hht_opt_t opt_o = { DEFAULT_CLIENT_N, DEFAULT_REQUEST_N, {sizeof(DEFAULT_METHOD) - 1, DEFAULT_METHOD} };
     hht_http_request_t *http_request;
-    hht_str_t url;
     unsigned int port = DEFAULT_PORT;
 
     http_request = new_http_request();
@@ -25,8 +24,7 @@ int main(int argc, char * const *argv)
         exit(0);
     }
 
-    url = hht_str_setto(argv[optind], strlen(argv[optind]));
-    if (parse_url(&url, http_request, &port) < 0) {
+    if (parse_url(argv[optind], http_request, &port) < 0) {
         exit(0);
     }
 

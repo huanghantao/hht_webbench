@@ -3,7 +3,6 @@
 ```shell
 git clone git@github.com:huanghantao/hht_webbench.git
 cd dockerfileDir/
-sh build_mirror.sh
 sh start_container.sh
 make clean
 make

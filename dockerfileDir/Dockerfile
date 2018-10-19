@@ -8,7 +8,7 @@ RUN apk --no-cache add \
     vim \
     gcc \
     make \
-    libc-dev
+    libc-dev \
+    gdb
 
 WORKDIR /root/hht_webbench
-CMD ["/sbin/init"]

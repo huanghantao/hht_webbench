@@ -2,8 +2,10 @@ version: '2'
 
 services:
   alpine:
+    build: .
     image: alpine
     volumes:
             - "../src:/root/hht_webbench"
     privileged: true
     restart: always
+    command: /sbin/init  

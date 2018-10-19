@@ -2,6 +2,7 @@
 #define __HHT_HTTP_H__
 
 
+#include <stdint.h>
 #include "../core/hht_string.h"
 #include "../core/hht_list.h"
 #include "../core/hht_strbuf.h"
@@ -14,6 +15,7 @@ typedef struct hht_http_header_node_s {
     hht_list_head_t node;
     hht_str_t key;
     hht_str_t value;
+    uint64_t key_hash;
 } hht_http_header_node_t;
 
 typedef struct hht_http_request_s {

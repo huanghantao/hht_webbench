@@ -6,6 +6,7 @@
 #include "../config/hht_config.h"
 #include "../core/hht_string.h"
 #include "../core/hht_list.h"
+#include "../core/hash.h"
 
 static const char *http_method_strs[] = {
     "GET", "POST", "PUT", "DELETE"
@@ -43,8 +44,10 @@ hht_http_header_node_t *new_http_header_node(unsigned char *key, unsigned char *
         if (key == NULL) {
             http_header_node->key.data = NULL;
             http_header_node->key.len = 0;
+            http_header_node->key_hash = 0;
         } else {
             http_header_node->key = hht_str_setto(key, strlen(key));
+            http_header_node->key_hash = hash_func(http_header_node->key.data, http_header_node->key.len);
         }
         if (value == NULL) {
             http_header_node->value.data = NULL;
@@ -136,7 +139,7 @@ hht_http_header_node_t *find_http_header_node_by_key(hht_http_request_t *http_re
 
     for (; pos != head_node; pos = pos->next) {
         http_header_node = list_entry(pos, hht_http_header_node_t, node);
-        if (hht_str_eq(&(http_header_node->key), key) == 0) {
+        if (http_header_node->key_hash == hash_func(key->data, key->len)) {
             return http_header_node;
         }
     }

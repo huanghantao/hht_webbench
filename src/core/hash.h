@@ -6,6 +6,6 @@
 #include <stdint.h>
 
 
-uint64_t hash_func(char *key, size_t len);
+uint64_t hash_func(unsigned char *key, size_t len);
 
 #endif /* __HHT_HASH_H__ */

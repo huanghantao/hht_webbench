@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "hht_string.h"
@@ -95,4 +96,27 @@ int hht_str_eqn_cstr(const hht_str_t *lstr, const char *cstr, int n)
         return 1;
     }
     return 0;
+}
+
+int hht_str_shallow_cpy(hht_str_t *str, unsigned char *start, unsigned char *end)
+{
+    if (str == NULL || start == NULL || end == NULL || start > end) {
+        return -1;
+    }
+    str->data = start;
+    str->len = end - start + 1;
+    return 0;
+}
+
+unsigned char *hht_strchr(hht_str_t *str, char ch)
+{
+    unsigned char *pos = str->data;
+
+    for (int i = 0; i < str->len; i++) {
+        if (*pos == ch) {
+            return pos;
+        }
+        pos++;
+    }
+    return NULL;
 }

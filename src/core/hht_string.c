@@ -3,6 +3,17 @@
 #include <string.h>
 #include "hht_string.h"
 
+hht_str_t hht_str_setto(unsigned char *cstr, int len)
+{
+    unsigned char *p = (unsigned char *)malloc(len + 1);
+
+    for (int i = 0; i < len; i++) {
+        p[i] = cstr[i];
+    }
+    p[len] = 0;
+    return (hht_str_t){ len, p };
+}
+
 int hht_str_eq(const hht_str_t *lstr, const hht_str_t *rstr)
 {
     if (lstr->data == NULL && rstr->data == NULL) {

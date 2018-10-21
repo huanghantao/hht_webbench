@@ -27,13 +27,17 @@ int parse_url(const char *url, hht_http_request_t *http_request, unsigned int *p
 	}
 
 	if ((pos2 = hht_strchr(&url_str, ':')) != NULL) {
-		hht_str_shallow_cpy(&host_str, url_str.data, pos2 - 1);
+		host_str = hht_str_setto(url_str.data, pos2 - url_str.data);
 	} else {
-		hht_str_shallow_cpy(&host_str, url_str.data, pos1 - 1);
+		host_str = hht_str_setto(url_str.data, pos1 - url_str.data);
 	}
 
 	http_header_node = find_http_header_node_by_key(http_request, &key_str);
-	http_header_node->value = host_str;
+	http_header_node->value = hht_str_setto(host_str.data, host_str.len);
+
+	hht_str_free(&url_str);
+	hht_str_free(&key_str);
+	hht_str_free(&host_str);
 
 	return 0;
 }

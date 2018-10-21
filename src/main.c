@@ -29,7 +29,6 @@ int main(int argc, char * const *argv)
     }
 
     http_request->method = hht_str_setto(opt_o.method.data, strlen(opt_o.method.data));
-    // http_header_node_each(http_request, handler);
     fill_http_request_buf(http_request);
     write(1, http_request->http_request_buf->buf, http_request->http_request_buf->len);
 

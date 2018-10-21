@@ -94,6 +94,8 @@ void http_header_node_add(hht_http_request_t *http_request, unsigned char *key, 
         }
         list_add_tail(&(http_request->headers_in_list->node), &(http_header_node->node));
     }
+
+    hht_str_free(&key_str);
 }
 
 void http_header_node_each(hht_http_request_t *http_request, void (*handler)(void *node))
@@ -129,6 +131,8 @@ int fill_http_request_buf(hht_http_request_t *http_request)
             return -1;
         }
     }
+
+    hht_str_free(&wrap);
 }
 
 hht_http_header_node_t *find_http_header_node_by_key(hht_http_request_t *http_request, hht_str_t *key)

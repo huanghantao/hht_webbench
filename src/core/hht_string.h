@@ -21,7 +21,6 @@ int hht_str_eq(const hht_str_t *lstr, const hht_str_t *rstr);
 int hht_str_eqn(const hht_str_t *lstr, const hht_str_t *rstr, int n);
 int hht_str_eq_cstr(const hht_str_t *str, const char *cstr);
 int hht_str_eqn_cstr(const hht_str_t *lstr, const char *cstr, int n);
-int hht_str_shallow_cpy(hht_str_t *str, unsigned char *start, unsigned char *end);
 unsigned char *hht_strchr(hht_str_t *str, char ch);
 
 #endif /* __HHT_STRING_H__ */

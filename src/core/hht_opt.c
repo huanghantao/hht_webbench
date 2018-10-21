@@ -1,9 +1,11 @@
 #include <string.h>
 #include <getopt.h>
 #include <stdio.h>
+#include <ctype.h>
 #include "hht_opt.h"
 #include "hht_common.h"
 #include "../http/hht_http.h"
+#include "parse.h"
 
 int hht_parse_option(int argc, char * const *argv, hht_opt_t *opt_o)
 {
@@ -24,10 +26,19 @@ int hht_parse_option(int argc, char * const *argv, hht_opt_t *opt_o)
         fprintf(stderr, "Error: The request method is invalid\n");
         return -1;
     }
-    
+
+    upper_method_name(&(opt_o->method));
+
     if(optind == argc) {
         fprintf(stderr, "Error: hht_webbench: Missing URL!\n");
         return -1;
     }
     return 0;
+}
+
+void upper_method_name(hht_str_t *str)
+{
+    for (int i = 0; i < str->len; i++) {
+        (str->data)[i] = toupper((str->data)[i]);
+    }
 }

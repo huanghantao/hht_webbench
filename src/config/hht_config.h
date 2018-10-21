@@ -10,5 +10,6 @@
 #define DEFAULT_HOST "localhost"
 #define DEFAULT_PATH "/"
 #define DEFAULT_PROTOCOL "HTTP/1.1"
+#define DEFAULT_PORT 80
 
 #endif /* __HHT_CONFIG_H__ */

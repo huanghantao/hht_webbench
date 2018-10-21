@@ -5,6 +5,7 @@
 #include "hht_opt.h"
 #include "hht_common.h"
 #include "../http/hht_http.h"
+#include "parse.h"
 
 int hht_parse_option(int argc, char * const *argv, hht_opt_t *opt_o)
 {

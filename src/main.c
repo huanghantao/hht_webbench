@@ -24,7 +24,7 @@ int main(int argc, char * const *argv)
         exit(0);
     }
 
-    if (parse_url(argv[optind], http_request, &port) < 0) {
+    if (parse_url(argv[optind], http_request) < 0) {
         exit(0);
     }
 

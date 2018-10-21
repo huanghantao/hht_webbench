@@ -4,7 +4,7 @@
 #include "parse.h"
 #include "../http/hht_http.h"
 
-int parse_url(const char *url, hht_http_request_t *http_request, unsigned int *port)
+int parse_url(const char *url, hht_http_request_t *http_request)
 {
 	hht_str_t url_str = hht_str_setto((unsigned char *)url, strlen((const char *)url));
 	hht_str_t key_str = hht_str_setto("Host", 4);

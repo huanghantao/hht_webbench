@@ -102,6 +102,7 @@ void http_header_node_each(hht_http_request_t *http_request, void (*handler)(voi
 {
     hht_list_head_t *head_node = &(http_request->headers_in_list->node);
     hht_list_head_t *pos = head_node->next;
+    
     for (; pos != head_node; pos = pos->next) {
         handler(pos);
     }
@@ -137,13 +138,16 @@ int fill_http_request_buf(hht_http_request_t *http_request)
 
 hht_http_header_node_t *find_http_header_node_by_key(hht_http_request_t *http_request, hht_str_t *key)
 {
+    uint64_t hash;
     hht_list_head_t *head_node = &(http_request->headers_in_list->node);
     hht_list_head_t *pos = head_node->next;
     hht_http_header_node_t *http_header_node;
 
+    hash = hash_func(key->data, key->len);
+
     for (; pos != head_node; pos = pos->next) {
         http_header_node = list_entry(pos, hht_http_header_node_t, node);
-        if (http_header_node->key_hash == hash_func(key->data, key->len)) {
+        if (http_header_node->key_hash == hash) {
             return http_header_node;
         }
     }

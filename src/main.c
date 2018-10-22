@@ -15,6 +15,8 @@ int main(int argc, char * const *argv)
     hht_http_request_t *http_request;
     unsigned int port = DEFAULT_PORT;
     char ip[MAX_IP_LEN + 1];
+    hht_http_header_node_t *http_header_node;
+    hht_str_t key_str;
 
     http_request = new_http_request();
 
@@ -30,14 +32,16 @@ int main(int argc, char * const *argv)
         exit(0);
     }
 
-    if (hostname_to_ip("localhost", ip) < 0) {
+    http_request->method = hht_str_setto(opt_o->method.data, strlen(opt_o->method.data));
+    key_str = hht_str_setto("Host", 4);
+    http_header_node = find_http_header_node_by_key(http_request, &key_str);
+
+    if (hostname_to_ip(http_header_node->value.data, ip) < 0) {
         fprintf(stderr, "Error: hostname to ip error");
         exit(0);
     }
-
     printf("ip: %s\n", ip);
-
-    http_request->method = hht_str_setto(opt_o->method.data, strlen(opt_o->method.data));
+    
     fill_http_request_buf(http_request);
     write(1, http_request->http_request_buf->buf, http_request->http_request_buf->len);
 

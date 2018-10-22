@@ -32,7 +32,7 @@ int hht_parse_option(int argc, char * const *argv, hht_opt_t *opt_o)
     upper_method_name(&(opt_o->method));
 
     if(optind == argc) {
-        fprintf(stderr, "Error: hht_webbench: Missing URL!\n");
+        fprintf(stderr, "Error: miss URL\n");
         return -1;
     }
     return 0;
@@ -50,6 +50,10 @@ hht_opt_t *new_hht_opt_t()
     hht_opt_t *opt;
 
     opt = malloc(sizeof(*opt));
+    if (opt == NULL) {
+        fprintf(stderr, "Error: malloc error\n");
+        exit(1);
+    }
     opt->client_n = DEFAULT_CLIENT_N;
     opt->method = hht_str_setto(DEFAULT_METHOD, strlen(DEFAULT_METHOD));
     opt->request_n = DEFAULT_REQUEST_N;

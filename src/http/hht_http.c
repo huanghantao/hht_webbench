@@ -64,7 +64,7 @@ hht_http_request_t *new_http_request(void)
 {
     hht_http_request_t *http_request;
 
-    http_request = (hht_http_request_t *)calloc(1, sizeof(*http_request));
+    http_request = (hht_http_request_t *)malloc(sizeof(*http_request));
     if (http_request != NULL) {
         http_request->method = hht_str_setto(DEFAULT_METHOD, sizeof(DEFAULT_METHOD) - 1);
         http_request->path = hht_str_setto(DEFAULT_PATH, sizeof(DEFAULT_PATH) - 1);
@@ -75,6 +75,9 @@ hht_http_request_t *new_http_request(void)
             return NULL;
         }
         http_request->http_request_buf = new_str_buf();
+    } else {
+        fprintf(stderr, "Error: malloc error\n");
+        exit(1);
     }
 
     return http_request;

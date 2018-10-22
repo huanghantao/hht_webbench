@@ -14,7 +14,7 @@ int parse_url(const char *url, hht_http_request_t *http_request)
 	unsigned char *pos2;
 
 	if (url_str.len < 7 || hht_str_eqn_cstr(&url_str, "http://", 7) != 0) {
-		printf("Please input the correct http protocol\n");
+        fprintf(stderr, "Please input the correct http protocol\n");
 		return -1;
 	}
 
@@ -22,7 +22,7 @@ int parse_url(const char *url, hht_http_request_t *http_request)
 	url_str.len -= 7;
 
 	if ((pos1 = hht_strchr(&url_str, '/')) == NULL) {
-		printf("Path is required\n");
+        fprintf(stderr, "Path is required\n");
 		return -1;
 	}
 

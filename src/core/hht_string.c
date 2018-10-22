@@ -67,8 +67,7 @@ int hht_str_eqn(const hht_str_t *lstr, const hht_str_t *rstr, int n)
 
 int hht_str_eq_cstr(const hht_str_t *str, const char *cstr)
 {
-
-    int cstr_len = strlen(cstr);
+    int cstr_len;
 
     if (str->data == NULL && cstr == NULL) {
         return 0;
@@ -76,6 +75,8 @@ int hht_str_eq_cstr(const hht_str_t *str, const char *cstr)
     if (str->data == NULL || cstr == NULL) {
         return 1;
     }
+    
+    cstr_len = strlen(cstr);
     if (str->len != cstr_len) {
         return 1;
     }

@@ -10,17 +10,17 @@ void handler(void *node);
 
 int main(int argc, char * const *argv)
 {
-    hht_opt_t opt_o = { DEFAULT_CLIENT_N, DEFAULT_REQUEST_N, {sizeof(DEFAULT_METHOD) - 1, DEFAULT_METHOD} };
+    hht_opt_t *opt_o;
     hht_http_request_t *http_request;
     unsigned int port = DEFAULT_PORT;
 
     http_request = new_http_request();
 
-    http_header_node_add(http_request, "Host", "localhost");
     http_header_node_add(http_request, "User-Agent", "Mozilla/5.0");
     http_header_node_add(http_request, "User-Agent", "Mozilla/5.1");
 
-    if (hht_parse_option(argc, argv, &opt_o) == -1) {
+    opt_o = new_hht_opt_t();
+    if (hht_parse_option(argc, argv, opt_o) == -1) {
         exit(0);
     }
 
@@ -28,7 +28,7 @@ int main(int argc, char * const *argv)
         exit(0);
     }
 
-    http_request->method = hht_str_setto(opt_o.method.data, strlen(opt_o.method.data));
+    http_request->method = hht_str_setto(opt_o->method.data, strlen(opt_o->method.data));
     fill_http_request_buf(http_request);
     write(1, http_request->http_request_buf->buf, http_request->http_request_buf->len);
 

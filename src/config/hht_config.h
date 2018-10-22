@@ -5,9 +5,7 @@
 #define VERSION "0.0.1"
 #define DEFAULT_CLIENT_N 4
 #define DEFAULT_REQUEST_N 1000
-#define MAX_REQUEST_LEN 256
 #define DEFAULT_METHOD "GET"
-#define DEFAULT_HOST "localhost"
 #define DEFAULT_PATH "/"
 #define DEFAULT_PROTOCOL "HTTP/1.1"
 #define DEFAULT_PORT 80

@@ -6,6 +6,8 @@
 #include "hht_common.h"
 #include "../http/hht_http.h"
 #include "parse.h"
+#include "../config/hht_config.h"
+#include "hht_string.h"
 
 int hht_parse_option(int argc, char * const *argv, hht_opt_t *opt_o)
 {
@@ -41,4 +43,16 @@ void upper_method_name(hht_str_t *str)
     for (int i = 0; i < str->len; i++) {
         (str->data)[i] = toupper((str->data)[i]);
     }
+}
+
+hht_opt_t *new_hht_opt_t()
+{
+    hht_opt_t *opt;
+
+    opt = malloc(sizeof(*opt));
+    opt->client_n = DEFAULT_CLIENT_N;
+    opt->method = hht_str_setto(DEFAULT_METHOD, strlen(DEFAULT_METHOD));
+    opt->request_n = DEFAULT_REQUEST_N;
+
+    return opt;
 }

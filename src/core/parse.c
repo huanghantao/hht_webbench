@@ -33,7 +33,11 @@ int parse_url(const char *url, hht_http_request_t *http_request)
 	}
 
 	http_header_node = find_http_header_node_by_key(http_request, &key_str);
-	http_header_node->value = hht_str_setto(host_str.data, host_str.len);
+	if (http_header_node != NULL) {
+		http_header_node->value = hht_str_setto(host_str.data, host_str.len);
+	} else {
+		http_header_node_add(http_request, "Host", host_str.data);
+	}
 
 	hht_str_free(&url_str);
 	hht_str_free(&key_str);

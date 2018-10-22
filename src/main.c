@@ -5,6 +5,7 @@
 #include "core/hht_opt.h"
 #include "http/hht_http.h"
 #include "core/parse.h"
+#include "core/hht_socket.h"
 
 void handler(void *node);
 
@@ -13,6 +14,7 @@ int main(int argc, char * const *argv)
     hht_opt_t *opt_o;
     hht_http_request_t *http_request;
     unsigned int port = DEFAULT_PORT;
+    char ip[MAX_IP_LEN + 1];
 
     http_request = new_http_request();
 
@@ -27,6 +29,13 @@ int main(int argc, char * const *argv)
     if (parse_url(argv[optind], http_request) < 0) {
         exit(0);
     }
+
+    if (hostname_to_ip("localhost", ip) < 0) {
+        fprintf(stderr, "Error: hostname to ip error");
+        exit(0);
+    }
+
+    printf("ip: %s\n", ip);
 
     http_request->method = hht_str_setto(opt_o->method.data, strlen(opt_o->method.data));
     fill_http_request_buf(http_request);

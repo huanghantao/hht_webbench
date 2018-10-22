@@ -45,7 +45,7 @@ void upper_method_name(hht_str_t *str)
     }
 }
 
-hht_opt_t *new_hht_opt_t()
+hht_opt_t *new_hht_opt()
 {
     hht_opt_t *opt;
 

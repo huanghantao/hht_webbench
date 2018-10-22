@@ -19,7 +19,7 @@ int main(int argc, char * const *argv)
     http_header_node_add(http_request, "User-Agent", "Mozilla/5.0");
     http_header_node_add(http_request, "User-Agent", "Mozilla/5.1");
 
-    opt_o = new_hht_opt_t();
+    opt_o = new_hht_opt();
     if (hht_parse_option(argc, argv, opt_o) == -1) {
         exit(0);
     }

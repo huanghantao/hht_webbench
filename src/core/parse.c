@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "parse.h"
-#include "../http/hht_http.h"
+#include "hht_http.h"
 
 int parse_url(const char *url, hht_http_request_t *http_request)
 {

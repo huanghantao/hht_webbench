@@ -4,10 +4,10 @@
 #include <stdio.h>
 #include "hht_http.h"
 #include "../config/hht_config.h"
-#include "../core/hht_string.h"
-#include "../core/hht_list.h"
-#include "../core/hash.h"
-#include "../core/hht_socket.h"
+#include "hht_string.h"
+#include "hht_list.h"
+#include "hash.h"
+#include "hht_socket.h"
 
 static const char *http_method_strs[] = {
     "GET", "POST", "PUT", "DELETE"

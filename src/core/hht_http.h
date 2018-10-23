@@ -3,9 +3,9 @@
 
 
 #include <stdint.h>
-#include "../core/hht_string.h"
-#include "../core/hht_list.h"
-#include "../core/hht_strbuf.h"
+#include "hht_string.h"
+#include "hht_list.h"
+#include "hht_strbuf.h"
 
 enum hht_http_method {
     HTTP_GET, HTTP_POST, HTTP_PUT, HTTP_DELETE

@@ -3,7 +3,7 @@
 #include <string.h>
 #include "config/hht_config.h"
 #include "core/hht_opt.h"
-#include "http/hht_http.h"
+#include "core/hht_http.h"
 #include "core/parse.h"
 
 void handler(void *node);

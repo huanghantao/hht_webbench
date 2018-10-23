@@ -4,7 +4,7 @@
 #include <ctype.h>
 #include "hht_opt.h"
 #include "hht_common.h"
-#include "../http/hht_http.h"
+#include "hht_http.h"
 #include "parse.h"
 #include "../config/hht_config.h"
 #include "hht_string.h"

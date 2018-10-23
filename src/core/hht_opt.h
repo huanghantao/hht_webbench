@@ -4,12 +4,13 @@
 
 #include "../config/hht_config.h"
 #include "hht_string.h"
+#include "hht_include.h"
 
-typedef struct hht_opt_s {
+struct hht_opt_s {
     unsigned int client_n;
     unsigned int request_n;
     hht_str_t method;
-} hht_opt_t;
+};
 
 hht_opt_t *new_hht_opt();
 int hht_parse_option(int argc, char * const *argv, hht_opt_t *opt_o);

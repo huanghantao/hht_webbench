@@ -4,11 +4,12 @@
 
 #include "hht_string.h"
 #include "hht_http.h"
+#include "hht_include.h"
 
-typedef struct hht_connection_s {
+struct hht_connection_s {
     int sockfd;
     struct addrinfo *addr;
-} hht_connection_t;
+};
 
 hht_connection_t *new_connection(void);
 int init_connection(hht_connection_t *connection, hht_http_request_t *http_request);

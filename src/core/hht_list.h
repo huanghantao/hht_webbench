@@ -2,6 +2,8 @@
 #define __HHT_LIST_H__
 
 
+#include "hht_include.h"
+
 #define LIST_HEAD_INIT(name) { &(name), &(name) }
 #define LIST_HEAD(name) hht_list_head_t name = LIST_HEAD_INIT(name)
 #define INIT_LIST_HEAD(ptr) do { \
@@ -11,8 +13,6 @@
         ((type *)((char *)(ptr) - offsetof(type, member)))
 #define offsetof(type, member) \
     ((size_t)(&((type *)0)->member))
-
-typedef struct hht_list_head_s hht_list_head_t;
 
 struct hht_list_head_s {
     hht_list_head_t *next;

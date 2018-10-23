@@ -41,9 +41,6 @@ int main(int argc, char * const *argv)
         exit(0);
     }
     
-    fill_http_request_buf(http_request);
-    write(1, http_request->http_request_buf->buf, http_request->http_request_buf->len);
-
     return 0;
 }
 

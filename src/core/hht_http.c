@@ -2,6 +2,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <sys/types.h>
+#include <sys/socket.h>
 #include "hht_http.h"
 #include "../config/hht_config.h"
 #include "hht_string.h"
@@ -186,4 +188,22 @@ int getip(hht_http_request_t *http_request, char *ip)
     }
 
     return 0;
+}
+
+int send_http_request(hht_http_request_t *http_request, hht_connection_t *connection)
+{
+    size_t bytes_sent;
+    size_t total_bytes_sent = 0;
+    size_t bytes_to_send = http_request->http_request_buf->len;
+
+    fill_http_request_buf(http_request);
+
+    while (1) {
+        bytes_sent = send(connection->sockfd, http_request->http_request_buf->buf, http_request->http_request_buf->len, 0);
+        total_bytes_sent += bytes_sent;
+
+        if (total_bytes_sent >= bytes_to_send) {
+            break;
+        }
+    }
 }

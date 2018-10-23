@@ -34,7 +34,12 @@ int main(int argc, char * const *argv)
     }
 
     connection = new_connection();
-    init_connection(connection, http_request);
+    if (init_connection(connection, http_request) < 0) {
+        exit(0);
+    }
+    if (make_connection(connection) < 0) {
+        exit(0);
+    }
     
     fill_http_request_buf(http_request);
     write(1, http_request->http_request_buf->buf, http_request->http_request_buf->len);

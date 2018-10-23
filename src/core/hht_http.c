@@ -121,6 +121,7 @@ int fill_http_request_buf(hht_http_request_t *http_request)
     hht_list_head_t *head_node = &(http_request->headers_in_list->node);
     hht_list_head_t *pos = head_node->next;
     hht_http_header_node_t *http_header_node;
+    hht_str_t wrap;
 
     if (append_fstr_buf(http_request->http_request_buf, 
             "%s %s %s\r\n", 
@@ -139,6 +140,9 @@ int fill_http_request_buf(hht_http_request_t *http_request)
             return -1;
         }
     }
+    wrap = hht_str_setto("\r\n", 2);
+    append_str_buf(http_request->http_request_buf, &wrap);
+    return 0;
 }
 
 hht_http_header_node_t *find_http_header_node_by_key(hht_http_request_t *http_request, hht_str_t *key)
@@ -193,8 +197,8 @@ int getip(hht_http_request_t *http_request, char *ip)
 int send_http_request(hht_http_request_t *http_request, hht_connection_t *connection)
 {
     size_t bytes_sent;
-    size_t total_bytes_sent = 0;
     size_t bytes_to_send = http_request->http_request_buf->len;
+    size_t total_bytes_sent = 0;
 
     fill_http_request_buf(http_request);
 
@@ -206,4 +210,6 @@ int send_http_request(hht_http_request_t *http_request, hht_connection_t *connec
             break;
         }
     }
+
+    return total_bytes_sent;
 }

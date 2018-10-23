@@ -23,13 +23,11 @@ int hostname_to_ip(char *hostname, char *ip)
         fprintf(stderr, "Error: getaddrinfo: %s\n", gai_strerror(rv));
         return -1;
     }
- 
-    for(p = servinfo; p != NULL; p = p->ai_next) {
-        h = (struct sockaddr_in *) p->ai_addr;
-        strcpy(ip, inet_ntoa(h->sin_addr));
-        return 0;
-    }
 
+    /* Take the first address */
+    h = (struct sockaddr_in *)servinfo->ai_addr;
+    strcpy(ip, inet_ntoa(h->sin_addr));
+ 
     freeaddrinfo(servinfo);
     return 0;
 }

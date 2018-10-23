@@ -12,7 +12,6 @@ int hostname_to_ip(char *hostname, char *ip)
     int sockfd;
     struct addrinfo hints;
     struct addrinfo *servinfo;
-    struct addrinfo *p;
     struct sockaddr_in *h;
  
     memset(&hints, 0, sizeof hints);

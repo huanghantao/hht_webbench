@@ -35,5 +35,6 @@ int hht_get_method_index(hht_str_t *method_str);
 const char *hht_get_http_method_str(int method_index);
 hht_http_header_node_t *find_http_header_node_by_key(hht_http_request_t *http_request, hht_str_t *key);
 hht_http_header_node_t *find_http_header_node(hht_http_request_t *http_request, hht_str_t *key, hht_str_t *value);
+int getip(hht_http_request_t *http_request, char *ip);
 
 #endif /* __HHT_HTTP_H__ */

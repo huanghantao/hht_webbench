@@ -7,6 +7,7 @@
 #include "../core/hht_string.h"
 #include "../core/hht_list.h"
 #include "../core/hash.h"
+#include "../core/hht_socket.h"
 
 static const char *http_method_strs[] = {
     "GET", "POST", "PUT", "DELETE"
@@ -167,4 +168,22 @@ hht_http_header_node_t *find_http_header_node(hht_http_request_t *http_request, 
     }
 
     return NULL;
+}
+
+int getip(hht_http_request_t *http_request, char *ip)
+{
+    hht_http_header_node_t *http_header_node;
+    hht_str_t key_str;
+
+    key_str = hht_str_setto("Host", 4);
+    http_header_node = find_http_header_node_by_key(http_request, &key_str);
+    if (http_header_node == NULL) {
+        return -1;
+    }
+    if (hostname_to_ip(http_header_node->value.data, ip) < 0) {
+        fprintf(stderr, "Error: hostname to ip error");
+        return -1;
+    }
+
+    return 0;
 }

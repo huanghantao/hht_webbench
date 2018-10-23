@@ -5,10 +5,8 @@
 #include "core/hht_opt.h"
 #include "http/hht_http.h"
 #include "core/parse.h"
-#include "core/hht_socket.h"
 
 void handler(void *node);
-int getip(hht_http_request_t *http_request, char *ip);
 
 int main(int argc, char * const *argv)
 {
@@ -48,22 +46,4 @@ void handler(void *node)
     hht_http_header_node_t *http_header_node = list_entry(node, hht_http_header_node_t, node);
     write(1, http_header_node->value.data, http_header_node->value.len);
     printf("len: %zu\n", http_header_node->value.len);
-}
-
-int getip(hht_http_request_t *http_request, char *ip)
-{
-    hht_http_header_node_t *http_header_node;
-    hht_str_t key_str;
-
-    key_str = hht_str_setto("Host", 4);
-    http_header_node = find_http_header_node_by_key(http_request, &key_str);
-    if (http_header_node == NULL) {
-        return -1;
-    }
-    if (hostname_to_ip(http_header_node->value.data, ip) < 0) {
-        fprintf(stderr, "Error: hostname to ip error");
-        return -1;
-    }
-
-    return 0;
 }

@@ -10,5 +10,6 @@
 #define DEFAULT_PROTOCOL "HTTP/1.1"
 #define DEFAULT_PORT 80
 #define MAX_IP_LEN 15
+#define Max_BUF_SIZE 1024
 
 #endif /* __HHT_CONFIG_H__ */

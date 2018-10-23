@@ -16,7 +16,7 @@ int main(int argc, char * const *argv)
     unsigned int port = DEFAULT_PORT;
     char ip[MAX_IP_LEN + 1];
     hht_connection_t *connection;
-    char recv_buf[1024];
+    char recv_buf[Max_BUF_SIZE];
 
     http_request = new_http_request();
     http_header_node_add(http_request, "User-Agent", "Mozilla/5.0");
@@ -42,7 +42,7 @@ int main(int argc, char * const *argv)
         exit(0);
     }
     send_http_request(http_request, connection);
-    read(connection->sockfd, recv_buf, 1024);
+    read(connection->sockfd, recv_buf, Max_BUF_SIZE);
     printf("%s", recv_buf);
     
     return 0;

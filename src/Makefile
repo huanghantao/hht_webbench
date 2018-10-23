@@ -17,3 +17,4 @@ obj/%.o:%.c
 clean:
 	-rm -f $(TARGET)
 	-rm -f obj/*.o
+	-rm -f core.*

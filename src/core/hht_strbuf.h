@@ -4,14 +4,15 @@
 
 #include <stdlib.h>
 #include "hht_string.h"
+#include "hht_include.h"
 
 #define STEP_LEN 512
 
-typedef struct hht_str_buf_s {
+struct hht_str_buf_s {
     size_t len;
     size_t capacity;
     unsigned char *buf;
-} hht_str_buf_t;
+};
 
 static int expand_buffer(hht_str_buf_t *str_buf, size_t nbytes);
 hht_str_buf_t *new_str_buf(void);

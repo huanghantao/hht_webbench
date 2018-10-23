@@ -3,11 +3,12 @@
 
 
 #include <stdlib.h>
+#include "hht_include.h"
 
-typedef struct hht_str_s {
+struct hht_str_s {
     size_t len;
     unsigned char *data;
-} hht_str_t;
+};
 
 #define hht_str(str) { sizeof(str) - 1, (unsigned char *)str }
 

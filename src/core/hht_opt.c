@@ -4,8 +4,10 @@
 #include <ctype.h>
 #include "hht_opt.h"
 #include "hht_common.h"
-#include "../http/hht_http.h"
+#include "hht_http.h"
 #include "parse.h"
+#include "../config/hht_config.h"
+#include "hht_string.h"
 
 int hht_parse_option(int argc, char * const *argv, hht_opt_t *opt_o)
 {
@@ -30,7 +32,7 @@ int hht_parse_option(int argc, char * const *argv, hht_opt_t *opt_o)
     upper_method_name(&(opt_o->method));
 
     if(optind == argc) {
-        fprintf(stderr, "Error: hht_webbench: Missing URL!\n");
+        fprintf(stderr, "Error: miss URL\n");
         return -1;
     }
     return 0;
@@ -41,4 +43,20 @@ void upper_method_name(hht_str_t *str)
     for (int i = 0; i < str->len; i++) {
         (str->data)[i] = toupper((str->data)[i]);
     }
+}
+
+hht_opt_t *new_hht_opt()
+{
+    hht_opt_t *opt;
+
+    opt = malloc(sizeof(*opt));
+    if (opt == NULL) {
+        fprintf(stderr, "Error: malloc error\n");
+        exit(1);
+    }
+    opt->client_n = DEFAULT_CLIENT_N;
+    opt->method = hht_str_setto(DEFAULT_METHOD, strlen(DEFAULT_METHOD));
+    opt->request_n = DEFAULT_REQUEST_N;
+
+    return opt;
 }

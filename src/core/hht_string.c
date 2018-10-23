@@ -5,8 +5,13 @@
 
 hht_str_t hht_str_setto(unsigned char *cstr, int len)
 {
-    unsigned char *p = (unsigned char *)malloc(len + 1);
+    unsigned char *p;
 
+    p = (unsigned char *)malloc(len + 1);
+    if (p == NULL) {
+        fprintf(stderr, "Error: malloc error\n");
+        exit(1);
+    }
     for (int i = 0; i < len; i++) {
         p[i] = cstr[i];
     }
@@ -62,8 +67,7 @@ int hht_str_eqn(const hht_str_t *lstr, const hht_str_t *rstr, int n)
 
 int hht_str_eq_cstr(const hht_str_t *str, const char *cstr)
 {
-
-    int cstr_len = strlen(cstr);
+    int cstr_len;
 
     if (str->data == NULL && cstr == NULL) {
         return 0;
@@ -71,6 +75,8 @@ int hht_str_eq_cstr(const hht_str_t *str, const char *cstr)
     if (str->data == NULL || cstr == NULL) {
         return 1;
     }
+    
+    cstr_len = strlen(cstr);
     if (str->len != cstr_len) {
         return 1;
     }

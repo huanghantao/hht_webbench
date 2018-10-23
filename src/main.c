@@ -5,6 +5,7 @@
 #include "core/hht_opt.h"
 #include "core/hht_http.h"
 #include "core/parse.h"
+#include "core/hht_connection.h"
 
 void handler(void *node);
 
@@ -14,9 +15,9 @@ int main(int argc, char * const *argv)
     hht_http_request_t *http_request;
     unsigned int port = DEFAULT_PORT;
     char ip[MAX_IP_LEN + 1];
+    hht_connection_t *connection;
 
     http_request = new_http_request();
-
     http_header_node_add(http_request, "User-Agent", "Mozilla/5.0");
     http_header_node_add(http_request, "User-Agent", "Mozilla/5.1");
 
@@ -24,16 +25,16 @@ int main(int argc, char * const *argv)
     if (hht_parse_option(argc, argv, opt_o) < 0) {
         exit(0);
     }
-
     if (parse_url(argv[optind], http_request) < 0) {
         exit(0);
     }
-
     http_request->method = hht_str_setto(opt_o->method.data, strlen(opt_o->method.data));
-
     if (getip(http_request, ip) == 0) {
         printf("ip: %s\n", ip);
     }
+
+    connection = new_connection();
+    init_connection(connection, http_request);
     
     fill_http_request_buf(http_request);
     write(1, http_request->http_request_buf->buf, http_request->http_request_buf->len);

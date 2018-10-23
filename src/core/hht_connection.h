@@ -3,13 +3,14 @@
 
 
 #include "hht_string.h"
+#include "hht_http.h"
 
 typedef struct hht_connection_s {
     int sockfd;
-    hht_str_t hostname;
-    hht_str_t ip;
-    hht_str_t port;
     struct addrinfo *addr;
 } hht_connection_t;
+
+hht_connection_t *new_connection(void);
+int init_connection(hht_connection_t *connection, hht_http_request_t *http_request);
 
 #endif /* __HHT_CONNECTION_H__ */

@@ -9,6 +9,7 @@ RUN apk --no-cache add \
     gcc \
     make \
     libc-dev \
-    gdb
+    gdb \
+    nginx
 
 WORKDIR /root/hht_webbench

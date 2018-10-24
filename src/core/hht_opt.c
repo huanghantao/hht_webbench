@@ -2,6 +2,8 @@
 #include <getopt.h>
 #include <stdio.h>
 #include <ctype.h>
+#include <stdint.h>
+#include <inttypes.h>
 #include "hht_opt.h"
 #include "hht_common.h"
 #include "hht_http.h"
@@ -13,12 +15,13 @@ int hht_parse_option(int argc, char * const *argv, hht_opt_t *opt_o)
 {
     int opt = 0;
 
-    while ((opt = getopt(argc, argv, "Vhc:n:t:m:")) != -1) {
+    while ((opt = getopt(argc, argv, "Vht:c:d:m:")) != -1) {
         switch (opt) {
             case 'V': printf("hht_webbench version "VERSION"\n");return -1;
             case 'h': usage();return -1;
-            case 'c': opt_o->client_n = atoi(optarg);break;
-            case 'n': opt_o->request_n = atoi(optarg);break;
+            case 't': opt_o->threads = atoi(optarg);break;
+            case 'c': opt_o->connections = atoi(optarg);break;
+            case 'd': opt_o->duration = atoi(optarg);break;
             case 'm': opt_o->method = hht_str_setto(optarg, strlen(optarg));break;
             default: usage();return -1;
         }
@@ -35,6 +38,8 @@ int hht_parse_option(int argc, char * const *argv, hht_opt_t *opt_o)
         fprintf(stderr, "Error: miss URL\n");
         return -1;
     }
+    opt_o->url = hht_str_setto(argv[argc - 1], strlen(argv[argc - 1]));
+
     return 0;
 }
 
@@ -54,9 +59,20 @@ hht_opt_t *new_hht_opt()
         fprintf(stderr, "Error: malloc error\n");
         exit(1);
     }
-    opt->client_n = DEFAULT_CLIENT_N;
+    opt->threads = DEFAULT_THREADS_N;
+    opt->connections = DEFAULT_CONNECTIONS_N;
+    opt->duration = DEFAULT_DURATION;
+    opt->url = hht_str_setto(DEFAULT_URL, strlen(DEFAULT_URL));
     opt->method = hht_str_setto(DEFAULT_METHOD, strlen(DEFAULT_METHOD));
-    opt->request_n = DEFAULT_REQUEST_N;
 
     return opt;
+}
+
+void print_opts(hht_opt_t *opt_o)
+{
+    printf("connections: %" PRIu64 "\n", opt_o->connections);
+    printf("duration: %" PRIu64 "s\n", opt_o->duration);
+    printf("threads: %" PRIu64 "\n", opt_o->threads);
+    printf("method: %s\n", opt_o->method.data);
+    printf("url: %s\n", opt_o->url.data);
 }

@@ -10,5 +10,6 @@ typedef struct hht_connection_s hht_connection_t;
 typedef struct hht_http_header_node_s hht_http_header_node_t;
 typedef struct hht_http_request_s hht_http_request_t;
 typedef struct hht_thread_s hht_thread_t;
+typedef struct hht_thread_arg_s hht_thread_arg_t;
 
 #endif /* __HHT_INCLUDE_H__ */

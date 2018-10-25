@@ -8,16 +8,16 @@
 #include "hht_connection.h"
 #include "hht_http.h"
 
-hht_connection_t *new_connection(void)
+hht_connection_t *new_connections(int num)
 {
-    hht_connection_t *connection;
+    hht_connection_t *connections;
 
-    connection = malloc(sizeof(*connection));
-    if (connection == NULL) {
+    connections = malloc(num * sizeof(*connections));
+    if (connections == NULL) {
         fprintf(stderr, "Error: malloc() error\n");
         return NULL;
     }
-    return connection;
+    return connections;
 }
 
 int init_connection(hht_connection_t *connection, hht_http_request_t *http_request)

@@ -7,6 +7,13 @@
 #include "core/parse.h"
 #include "core/hht_connection.h"
 #include "core/hht_thread.h"
+#include "core/hht_include.h"
+
+
+struct hht_thread_arg_s {
+    hht_thread_t *thread;
+    hht_http_request_t *http_request;
+};
 
 void handler(void *node);
 void *thread_main(void *arg);
@@ -20,6 +27,7 @@ int main(int argc, char * const *argv)
     char recv_buf[Max_BUF_SIZE];
     hht_thread_t *threads;
     hht_thread_t *t;
+    hht_thread_arg_t *thread_args;
 
     http_request = new_http_request();
     http_header_node_add(http_request, "User-Agent", "Mozilla/5.0");
@@ -34,19 +42,18 @@ int main(int argc, char * const *argv)
     }
     http_request->method = hht_str_setto(opt_o->method.data, strlen(opt_o->method.data));
 
-    connection = new_connection();
-    if (init_connection(connection, http_request) < 0) {
-        exit(0);
-    }
-    if (make_connection(connection) < 0) {
-        exit(0);
-    }
-
     threads = malloc(opt_o->threads * sizeof(*threads));
+    if (threads == NULL) {
+        printf("Error: malloc error");
+        exit(0);
+    }
+    thread_args = malloc(sizeof(*thread_args));
+    thread_args->http_request = http_request;
     for (int i = 0; i < opt_o->threads; i++) {
         t = &threads[i];
         t->connections = opt_o->connections / opt_o->threads;
-        pthread_create(&t->thread, NULL, &thread_main, t);
+        thread_args->thread = t;
+        pthread_create(&t->thread, NULL, &thread_main, thread_args);
     }
 
     for (int i = 0; i < opt_o->threads; i++) {
@@ -54,10 +61,6 @@ int main(int argc, char * const *argv)
         pthread_join(t->thread, NULL);
     }
 
-    // send_http_request(http_request, connection);
-    // read(connection->sockfd, recv_buf, Max_BUF_SIZE);
-    // printf("%s", recv_buf);
-    
     return 0;
 }
 
@@ -71,7 +74,18 @@ void handler(void *node)
 void *thread_main(void *arg)
 {
     pthread_t tid;
+    hht_thread_arg_t *thread_args;
 
-    tid = pthread_self();
-    printf("thread id: %ld\n", (long int)tid);
+    thread_args = arg;
+    thread_args->thread->cs = new_connections(thread_args->thread->connections);
+    if (thread_args->thread->cs == NULL) {
+        printf("Error: new_connections error");
+        pthread_exit(NULL);
+    }
+    for (uint64_t i = 0; i < thread_args->thread->connections; i++) {
+        init_connection(&((thread_args->thread->cs)[i]), thread_args->http_request);
+    }
+    for (uint64_t i = 0; i < thread_args->thread->connections; i++) {
+        printf("%d\n", (thread_args->thread->cs + i)->sockfd);
+    }
 }

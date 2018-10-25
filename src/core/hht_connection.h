@@ -11,7 +11,7 @@ struct hht_connection_s {
     struct addrinfo *addr;
 };
 
-hht_connection_t *new_connection(void);
+hht_connection_t *new_connections(int num);
 int init_connection(hht_connection_t *connection, hht_http_request_t *http_request);
 int make_connection(hht_connection_t *connection);
 

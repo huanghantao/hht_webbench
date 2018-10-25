@@ -5,17 +5,17 @@ git clone git@github.com:huanghantao/hht_webbench.git
 cd dockerfileDir/
 sh start_container.sh
 make clean && make
-./hht_webbench -c 6 -n 1000 -m POST http://www.baidu.com/
+./hht_webbench -m get -t 4 -c 2000 http://www.baidu.com/
 ```
 
 ## 二、可以控制的选项
 
-| 选项 | 描述                                              |
-| ---- | ------------------------------------------------- |
-| -c   | 模拟出的客户端数目                                |
-| -n   | 总请求数                                          |
-| -t   | 限制测试的最大时间（单位s）。默认时没有时间限制。 |
-| -V   | 显示软件的版本                                    |
-| -h   | 显示软件的使用方法                                |
-| -m   | 请求方法（GET/POST）                              |
+| 选项 | 描述                        |
+| ---- | --------------------------- |
+| -t   | 线程个数                    |
+| -c   | 总的连接数                  |
+| -d   | 限制测试的最大时间（单位s） |
+| -V   | 显示软件的版本              |
+| -h   | 显示软件的使用方法          |
+| -m   | 请求方法（GET/POST）        |
 

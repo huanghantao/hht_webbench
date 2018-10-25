@@ -34,6 +34,10 @@ int main(int argc, char * const *argv)
     http_header_node_add(http_request, "User-Agent", "Mozilla/5.1");
 
     opt_o = new_hht_opt();
+    if (opt_o == NULL) {
+        printf("Error: new_hht_opt");
+        exit(0);
+    }
     if (hht_parse_option(argc, argv, opt_o) < 0) {
         exit(0);
     }

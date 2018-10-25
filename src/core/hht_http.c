@@ -19,6 +19,11 @@ int hht_get_method_index(hht_str_t *method_str)
 {
     int i;
 
+    if (method_str == NULL) {
+        printf("Error: method_str is NULL");
+        return -1;
+    }
+
     for (i = 0; i < HTTP_DELETE; ++i) {
         if (strcasecmp(http_method_strs[i], method_str->data) == 0) {
             return i;
@@ -92,6 +97,11 @@ void http_header_node_add(hht_http_request_t *http_request, unsigned char *key, 
     hht_http_header_node_t *temp_http_header_node;
     hht_str_t key_str;
 
+    if (http_request == NULL) {
+        printf("Error: http_request is NULL\n");
+        return ;
+    }
+
     key_str = hht_str_setto(key, strlen(key));
     http_header_node = new_http_header_node(key, value);
     if (http_header_node != NULL) {
@@ -110,6 +120,11 @@ void http_header_node_each(hht_http_request_t *http_request, void (*handler)(voi
 {
     hht_list_head_t *head_node = &(http_request->headers_in_list->node);
     hht_list_head_t *pos = head_node->next;
+
+    if (http_request == NULL) {
+        printf("Error: http_request is NULL\n");
+        return ;
+    }
     
     for (; pos != head_node; pos = pos->next) {
         handler(pos);
@@ -122,6 +137,11 @@ int fill_http_request_buf(hht_http_request_t *http_request)
     hht_list_head_t *pos = head_node->next;
     hht_http_header_node_t *http_header_node;
     hht_str_t wrap;
+
+    if (http_request == NULL) {
+        printf("Error: http_request is NULL\n");
+        return -1;
+    }
 
     if (append_fstr_buf(http_request->http_request_buf, 
             "%s %s %s\r\n", 
@@ -152,6 +172,11 @@ hht_http_header_node_t *find_http_header_node_by_key(hht_http_request_t *http_re
     hht_list_head_t *pos = head_node->next;
     hht_http_header_node_t *http_header_node;
 
+    if (http_request == NULL) {
+        printf("Error: http_request is NULL\n");
+        return NULL;
+    }
+
     hash = hash_func(key->data, key->len);
 
     for (; pos != head_node; pos = pos->next) {
@@ -168,6 +193,11 @@ hht_http_header_node_t *find_http_header_node(hht_http_request_t *http_request, 
 {
     hht_http_header_node_t *http_header_node;
 
+    if (http_request == NULL) {
+        printf("Error: http_request is NULL\n");
+        return NULL;
+    }
+
     http_header_node = find_http_header_node_by_key(http_request, key);
     if (http_header_node != NULL && hht_str_eq(&(http_header_node->value), value) == 0) {
         return http_header_node;
@@ -180,6 +210,11 @@ int getip(hht_http_request_t *http_request, char *ip)
 {
     hht_http_header_node_t *http_header_node;
     hht_str_t key_str;
+
+    if (http_request == NULL) {
+        printf("Error: http_request is NULL\n");
+        return -1;
+    }
 
     key_str = hht_str_setto("Host", 4);
     http_header_node = find_http_header_node_by_key(http_request, &key_str);
@@ -199,6 +234,11 @@ int send_http_request(hht_http_request_t *http_request, hht_connection_t *connec
     size_t bytes_sent;
     size_t bytes_to_send = http_request->http_request_buf->len;
     size_t total_bytes_sent = 0;
+
+    if (http_request == NULL || connection == NULL) {
+        printf("Error: http_request or connection is NULL\n");
+        return -1;
+    }
 
     fill_http_request_buf(http_request);
 

@@ -15,6 +15,12 @@ int hht_parse_option(int argc, char * const *argv, hht_opt_t *opt_o)
 {
     int opt = 0;
 
+    if (opt_o == NULL) {
+        printf("Error: opt_o is NULL\n");
+        return -1;
+
+    }
+
     while ((opt = getopt(argc, argv, "Vht:c:d:m:")) != -1) {
         switch (opt) {
             case 'V': printf("hht_webbench version "VERSION"\n");return -1;
@@ -70,6 +76,10 @@ hht_opt_t *new_hht_opt()
 
 void print_opts(hht_opt_t *opt_o)
 {
+    if (opt_o == NULL) {
+        printf("Error: opt_o is NULL\n");
+        return ;
+    }
     printf("connections: %" PRIu64 "\n", opt_o->connections);
     printf("duration: %" PRIu64 "s\n", opt_o->duration);
     printf("threads: %" PRIu64 "\n", opt_o->threads);

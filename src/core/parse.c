@@ -13,6 +13,11 @@ int parse_url(const char *url, hht_http_request_t *http_request)
 	unsigned char *pos1;
 	unsigned char *pos2;
 
+	if (http_request == NULL) {
+		printf("Error: http_request is NULL\n");
+		return -1;
+	}
+
 	url_str = hht_str_setto((unsigned char *)url, strlen((const char *)url));
 	if (url_str.len < 7 || hht_str_eqn_cstr(&url_str, "http://", 7) != 0) {
         fprintf(stderr, "Please input the correct http protocol\n");

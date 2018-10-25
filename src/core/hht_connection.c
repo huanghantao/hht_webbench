@@ -12,6 +12,11 @@ hht_connection_t *new_connections(int num)
 {
     hht_connection_t *connections;
 
+    if (num <= 0) {
+        printf("Error: num is less than 0\n");
+        return NULL;
+    }
+
     connections = malloc(num * sizeof(*connections));
     if (connections == NULL) {
         fprintf(stderr, "Error: malloc() error\n");
@@ -25,6 +30,11 @@ int init_connection(hht_connection_t *connection, hht_http_request_t *http_reque
     struct addrinfo hints;
     hht_str_t key_str;
     hht_http_header_node_t *http_header_node;
+
+    if (connection == NULL || http_request == NULL) {
+        printf("Error: connection is NULL or http_request is NULL\n");
+        return -1;
+    }
     
     memset(&hints, 0, sizeof(hints));
     hints.ai_family = AF_INET;
@@ -47,6 +57,11 @@ int init_connection(hht_connection_t *connection, hht_http_request_t *http_reque
 
 int make_connection(hht_connection_t *connection)
 {
+    if (connection == NULL) {
+        printf("Error: connection is NULL\n");
+        return -1;
+    }
+
     if (connect(connection->sockfd, connection->addr->ai_addr, connection->addr->ai_addrlen) != 0) {
         perror("connect() error");
         return -1;

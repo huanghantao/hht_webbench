@@ -7,10 +7,15 @@ hht_str_t hht_str_setto(unsigned char *cstr, int len)
 {
     unsigned char *p;
 
+    if (cstr == NULL || len <= 0) {
+        printf("Error: cstr is NULL or length is illegal\n");
+        exit(0);
+    }
+
     p = (unsigned char *)malloc(len + 1);
     if (p == NULL) {
         fprintf(stderr, "Error: malloc error\n");
-        exit(1);
+        exit(0);
     }
     for (int i = 0; i < len; i++) {
         p[i] = cstr[i];
@@ -21,6 +26,11 @@ hht_str_t hht_str_setto(unsigned char *cstr, int len)
 
 int hht_str_eq(const hht_str_t *lstr, const hht_str_t *rstr)
 {
+    if (lstr == NULL || rstr == NULL) {
+        printf("Error: lstr is NULL or rstr is NULL\n");
+        return 1;
+    }
+
     if (lstr->data == NULL && rstr->data == NULL) {
         return 0;
     }
@@ -42,6 +52,11 @@ int hht_str_eqn(const hht_str_t *lstr, const hht_str_t *rstr, int n)
 {   
     int min_len;
     int i;
+
+    if (lstr == NULL || rstr == NULL) {
+        printf("Error: lstr is NULL or rstr is NULL\n");
+        return 1;
+    }
 
     if (lstr->data == NULL && rstr->data == NULL) {
         return 0;
@@ -68,6 +83,11 @@ int hht_str_eqn(const hht_str_t *lstr, const hht_str_t *rstr, int n)
 int hht_str_eq_cstr(const hht_str_t *str, const char *cstr)
 {
     int cstr_len;
+    
+    if (str == NULL) {
+        printf("Error: lstr is NULL\n");
+        return 1;
+    }
 
     if (str->data == NULL && cstr == NULL) {
         return 0;
@@ -94,6 +114,11 @@ int hht_str_eqn_cstr(const hht_str_t *lstr, const char *cstr, int n)
     int cstr_len = strlen(cstr);
     int i;
 
+    if (lstr == NULL) {
+        printf("Error: lstr is NULL\n");
+        return 1;
+    }
+
     if (lstr->data == NULL && cstr == NULL) {
         return 0;
     }
@@ -118,6 +143,11 @@ int hht_str_eqn_cstr(const hht_str_t *lstr, const char *cstr, int n)
 unsigned char *hht_strchr(hht_str_t *str, char ch)
 {
     unsigned char *pos = str->data;
+
+    if (str == NULL) {
+        printf("Error: str is NULL\n");
+        return NULL;
+    }
 
     for (int i = 0; i < str->len; i++) {
         if (*pos == ch) {

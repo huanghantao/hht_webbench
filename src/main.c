@@ -49,14 +49,14 @@ int main(int argc, char * const *argv)
     }
     thread_args = malloc(sizeof(*thread_args));
     thread_args->http_request = http_request;
-    for (int i = 0; i < opt_o->threads; i++) {
+    for (uint64_t i = 0; i < opt_o->threads; i++) {
         t = &threads[i];
         t->connections = opt_o->connections / opt_o->threads;
         thread_args->thread = t;
         pthread_create(&t->thread, NULL, &thread_main, thread_args);
     }
 
-    for (int i = 0; i < opt_o->threads; i++) {
+    for (uint64_t i = 0; i < opt_o->threads; i++) {
         t = &threads[i];
         pthread_join(t->thread, NULL);
     }
